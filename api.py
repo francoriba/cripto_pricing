@@ -12,8 +12,8 @@ cryptos = ["BTC", "ETH", "LTC"]
 # Crea una lista vacía para almacenar los precios
 prices = []
 
-# Realiza una solicitud HTTP GET a la API REST para cada criptomoneda y almacena el precio en la lista de precios
-
+# Realiza una solicitud HTTP GET a la API REST para cada criptomoneda y almacena 
+# el precio en la lista de precios
 def print_all():
     for crypto in cryptos:
         url = url_base.format(crypto)
@@ -38,4 +38,4 @@ def get_crypto_price(coin):
     price = data["rate"]
     return price
 
-print("El valor del BTC es: ", get_crypto_price("BTC"), "USD")
+print("El precio del BTC es: ", get_crypto_price("BTC"), "USD")
