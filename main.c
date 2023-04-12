@@ -6,46 +6,15 @@
 //float PRE_CDECL convert_to( float, float) POST_CDECL; 
 extern float convert_to(float , float);
 
-//Prototipos de funciones
-float btc_ars(float btc_usd, float rate_ars);
-float btc_eur(float btc_usd,float rate_eur);
-float eth_ars(float eth_usd, float rate_ars);
-float eth_eur(float eth_usd, float rate_eur);
-float ltc_ars(float ltc_usd, float rate_ars);
-float ltc_eur(float ltc_usd, float rate_eur);
+//Prototipo de funcion
+float somecripto_somerate(float crypto_usd, float rate);
 
 int main(int argc, char *argv[]){
 
-    printf("%f",btc_ars(30364.108274487993, 387.075));
+    printf("%f",somecripto_somerate(30364.108274487993, 387.075));
     return 0;
 }
 
-float btc_ars(float btc_usd, float rate_ars){
-    double btc_ars = convert_to(btc_usd, rate_ars); // calcula el precio de btc en ars
-    return btc_ars;
-}
-
-float btc_eur(float btc_usd,float rate_eur){
-    float btc_eur = convert_to(btc_usd, rate_eur); //calcula el precio de btc en eur
-    return btc_eur;
-}
-
-float ltc_ars(float ltc_usd, float rate_ars){
-    float ltc_ars = convert_to(ltc_usd, rate_ars); //calcula el precio de ltc en ars
-    return ltc_ars;
-}
-
-float ltc_eur(float ltc_usd, float rate_eur){
-    float ltc_eur = convert_to(ltc_usd, rate_eur); //calcula el precio de ltc en eur
-    return ltc_eur;
-}
-
-float eth_ars(float eth_usd, float rate_ars){
-    float eth_ars = convert_to(eth_usd, rate_ars); //calcula el precio de eth en ars
-    return eth_ars;
-}
-
-float eth_eur(float eth_usd, float rate_eur){
-    float eth_eur = convert_to(eth_usd, rate_eur); //calcula el precio de eth en eur
-    return eth_eur;
-} 
+float somecripto_somerate(float crypto_usd, float rate){
+    double somecripto_somerate = convert_to(crypto_usd, rate); // calcula el precio de btc en ars
+    return somecripto_somerate;}

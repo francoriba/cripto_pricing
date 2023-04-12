@@ -37,33 +37,41 @@ def get_rate(rate):
     return price
 
 #Especificamos parametros y valores de retorno compatibles con c
-btc_ars = clibrary.btc_ars
-btc_ars.argtypes = [ctypes.c_float, ctypes.c_float]
-btc_ars.restype = ctypes.c_float
+somecripto_somerate = clibrary.somecripto_somerate
+somecripto_somerate.argtypes = [ctypes.c_float, ctypes.c_float]
+somecripto_somerate.restype = ctypes.c_float
 
-btc_eur = clibrary.btc_eur
-btc_eur.argtypes = [ctypes.c_float, ctypes.c_float]
-btc_eur.restype = ctypes.c_float
+print(get_rate("ARS"))
 
-eth_ars = clibrary.eth_ars
-eth_ars.argtypes = [ctypes.c_float, ctypes.c_float]
-eth_ars.restype = ctypes.c_float
+flag = True
+while flag: 
 
-eth_eur = clibrary.eth_eur
-eth_eur.argtypes = [ctypes.c_float, ctypes.c_float]
-eth_eur.restype = ctypes.c_float
+    symbol = input("Simbolo de criptomoneda: ")
+    while (symbol not in cryptos) and (symbol not in [c.lower() for c in cryptos]):
+        print("***ERROR: el símbolo de criptomoneda no es válido, intente nuevamente")
+        symbol = input("Simbolo de criptomoneda: ")
+    rate = input("Moneda: ")
+    while (rate not in rates) and (rate  not in [r.lower() for r in rates]):
+        print("***ERROR: El símbolo de moneda no es válido, intente nuevamente")
+        rate = input("Simbolo de moneda: ")
+            
+    if (symbol == "BTC" or symbol == "btc") and (rate == "ARS" or rate == "ars"): 
+        print("El precio del BTC es: ", somecripto_somerate(get_crypto_price("BTC"), get_rate("ARS")), "ARS")
+    elif (symbol == "BTC" or symbol == "btc") and (rate == "EUR" or rate == "eur"): 
+        print("El precio del BTC es: ", somecripto_somerate(get_crypto_price("BTC"), get_rate("EUR")), "EUR")
+    elif (symbol == "ETH" or symbol == "eth") and (rate == "ARS" or rate == "ars"): 
+        print("El precio del ETH es: ", somecripto_somerate(get_crypto_price("ETH"), get_rate("ARS")), "ARS")
+    elif (symbol == "ETH" or symbol == "eth") and (rate == "EUR" or rate == "eur"):     
+        print("El precio del ETH es: ", somecripto_somerate(get_crypto_price("ETH"), get_rate("EUR")), "EUR")
+    elif (symbol == "LTC" or symbol == "ltc") and (rate == "ARS" or rate == "ars"): 
+        print("El precio del LTC es: ", somecripto_somerate(get_crypto_price("LTC"), get_rate("ARS")), "ARS")
+    elif (symbol == "LTC" or symbol == "ltc") and (rate == "EUR" or rate == "eur"): 
+        print("El precio del LTC es: ", somecripto_somerate(get_crypto_price("LTC"), get_rate("EUR")), "EUR")
 
-ltc_ars = clibrary.ltc_ars
-ltc_ars.argtypes = [ctypes.c_float, ctypes.c_float]
-ltc_ars.restype = ctypes.c_float
-
-ltc_eur = clibrary.ltc_eur
-ltc_eur.argtypes = [ctypes.c_float, ctypes.c_float]
-ltc_eur.restype = ctypes.c_float
-
-print("El precio del BTC es: ", btc_ars(get_crypto_price("BTC"), get_rate("ARS")), "ARS")
-print("El precio del BTC es: ", btc_eur(get_crypto_price("BTC"), get_rate("EUR")), "EUR")
-print("El precio del ETH es: ", eth_ars(get_crypto_price("ETH"), get_rate("ARS")), "ARS")
-print("El precio del ETH es: ", eth_eur(get_crypto_price("ETH"), get_rate("EUR")), "EUR")
-print("El precio del LTC es: ", ltc_ars(get_crypto_price("LTC"), get_rate("ARS")), "ARS")
-print("El precio del LTC es: ", ltc_eur(get_crypto_price("LTC"), get_rate("EUR")), "EUR")
+    again = input("Nueva consulta? Y/N:  ")
+    if again == "Y" or again == "y":
+        flag = True
+    elif again == "N" or again == "n":
+        flag = False
+        print("Matanga dijo la changa")
+    
