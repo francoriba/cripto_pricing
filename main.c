@@ -8,7 +8,7 @@ extern float mul(float , float);
 //Prototipo de funcion
 float somecripto_somerate(float btc_usd, float rate_ars);
 
-int main(int argc, char *argv[]){
+int main(){
 
     printf("%f",somecripto_somerate(30364.108274487993, 387.075));
     return 0;
