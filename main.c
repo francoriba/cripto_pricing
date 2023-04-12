@@ -4,7 +4,7 @@
 
 // Declaramos la función convert_to, que se definirá en assembler
 //float PRE_CDECL convert_to( float, float) POST_CDECL; 
-extern float convert_to(float , float);
+extern float mul(float , float);
 
 //Prototipo de funcion
 float somecripto_somerate(float crypto_usd, float rate);
@@ -16,5 +16,5 @@ int main(int argc, char *argv[]){
 }
 
 float somecripto_somerate(float crypto_usd, float rate){
-    double somecripto_somerate = convert_to(crypto_usd, rate); // calcula el precio de btc en ars
+    double somecripto_somerate = mul(crypto_usd, rate); // calcula el precio de btc en ars
     return somecripto_somerate;}
