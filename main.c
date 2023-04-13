@@ -2,18 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Declaramos la función convert_to, que se definirá en assembler
+// prototype of "mul" function, implemented in "mul64.asm"
 extern float mul(float , float);
-
-//Prototipo de funcion
-float somecripto_somerate(float btc_usd, float rate_ars);
+//function prototype
+float convert(float crypto_usd, float rate);
 
 int main(){
 
-    printf("%f",somecripto_somerate(30364.108274487993, 387.075));
+    printf("%f",convert(30364.10f, 387.075f));
     return 0;
 }
-float somecripto_somerate(float btc_usd, float rate_ars){
-    double btc_ars = mul(btc_usd, rate_ars); // calcula el precio de btc en ars
-    return btc_ars;
-}
+
+float convert(float crypto_usd, float rate){
+    float convertion = mul(crypto_usd, rate); // calcula el precio de btc en ars
+    return convertion;}

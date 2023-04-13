@@ -1,20 +1,46 @@
-CC=gcc
-CFLAGS=-Wall -Wextra -std=c11 -m32 -g -fno-pie
-LDFLAGS=-lm
+# Compilador
+CC = 			gcc
+CFLAGS 	= 		-Wall -Werror -pedantic -Wextra -Wconversion -std=gnu11 -m32 -g
+LDFLAGS = 		-shared
+NASM = 			nasm
+NASMFLAGS=		-f elf32
 
-all: main
+# Source files
+SRCS = main.c mul32.asm
 
-main: main.o mul32.o
-	$(CC) $(CFLAGS) -fno-pic -o $@ $< -L. -currencyconverterlib $(LDFLAGS)
+# Object files
+OBJS= main.o mul32.o
 
-main.o: main.c
-	$(CC) $(CFLAGS) -c $<
+# Target
+TARGETS = main currencyconverterlib.so #Name for final target
 
-mul32.o: mul32.asm
-	nasm -f elf32 -o $@ $<
+# Tell make these are not real targets (won't create an output file)
+.PHONY: all clean 
 
-currencyconverterlib.o:
-	gcc -m32 -shared -o currencyconverterlib.so main.c mul32.o
+# Targets to build when writing only make command
+all: $(TARGETS)
 
+###### Objects and librearies ######
+
+# Link object files to create the final executable
+main: $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+# Compile C source files
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Compile NASM assembly files
+%.o: %.asm
+	$(NASM) $(NASMFLAGS) -o $@ $<
+
+# Create shared library from object files
+currencyconverterlib.so: mul32.o main.o
+	$(CC) $(LDFLAGS) -o $@ $^
+	@echo "\n"Build Donde!"\n"
+
+# Eliminar todos los objetos, dependencias y ejecutables  -f los ignora si no existen
 clean:
-	rm -f *.o main
+	rm -f *.o
+	rm -f $(TARGETS)
+	@echo "\n"All clean now!

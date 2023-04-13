@@ -5,9 +5,6 @@
 ;gcc -o main mul32.o -m32 main.c -g
 ;gcc -m32 -shared -o currencyconverterlib.so main.c mul32.o
 
-;Parameters:
-;	float a  [rbp + 16]
-; 	float b [rbp + 24]
 segment .data
 ; no usamos segmento de datos
 
