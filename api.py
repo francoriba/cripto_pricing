@@ -10,7 +10,7 @@ api_key = "768E6439-1061-4146-A197-94F1AFC61779"
 # Definition of the cryptocurrencies for which we want to obtain prices
 cryptos = ["BTC", "ETH", "LTC"]
 # Definition of the currencies to which we want to convert the crypto prices.
-rates = ["ARS", "EUR"]
+rates = ["ARS", "EUR", "USD"]
 # For using c functions from python 
 clibrary = ctypes.CDLL("./currencyconverterlib.so")
 
@@ -37,35 +37,29 @@ convert = clibrary.convert
 convert.argtypes = [ctypes.c_float, ctypes.c_float]
 convert.restype = ctypes.c_float
 
+# Calls C function convert(), gets the result and prints it
+def print_results(symbol, rate):
+    price = convert(get_crypto_price(symbol), get_rate(rate))
+    print(symbol, " price is: ", price, " ", rate)
+    return
+
 flag = True #stop the program when is False
 while flag: 
 
-    symbol = input("Cryptocurrency symbol: ")
-    while (symbol not in cryptos) and (symbol not in [c.lower() for c in cryptos]):
+    symbol = (input("Cryptocurrency symbol [BTC, ETH, LTC]: ")).upper()
+    while (symbol not in cryptos):
         print("***ERROR: invalid cryptocurrency symbol, try again")
-        symbol = input("Cryptocurrency symbol: ")
-    rate = input("Currency symbol: ")
-    while (rate not in rates) and (rate  not in [r.lower() for r in rates]):
+        symbol = (input("Cryptocurrency symbol [BTC, ETH, LTC]: ")).upper()
+        
+    rate = (input("Currency symbol [ARS, EUR, USD]: ")).upper()
+    while (rate not in rates):
         print("***ERROR: invalid currency symbol, try again")
-        rate = input("Currency symbol: ")
-            
-    if (symbol == "BTC" or symbol == "btc") and (rate == "ARS" or rate == "ars"): 
-        print("BTC price is : ", convert(get_crypto_price("BTC"), get_rate("ARS")), "ARS")
-    elif (symbol == "BTC" or symbol == "btc") and (rate == "EUR" or rate == "eur"): 
-        print("BTC price is: ", convert(get_crypto_price("BTC"), get_rate("EUR")), "EUR")
-    elif (symbol == "ETH" or symbol == "eth") and (rate == "ARS" or rate == "ars"): 
-        print("ETH price is: ", convert(get_crypto_price("ETH"), get_rate("ARS")), "ARS")
-    elif (symbol == "ETH" or symbol == "eth") and (rate == "EUR" or rate == "eur"):     
-        print("ETH price is: ", convert(get_crypto_price("ETH"), get_rate("EUR")), "EUR")
-    elif (symbol == "LTC" or symbol == "ltc") and (rate == "ARS" or rate == "ars"): 
-        print("LTC price is: ", convert(get_crypto_price("LTC"), get_rate("ARS")), "ARS")
-    elif (symbol == "LTC" or symbol == "ltc") and (rate == "EUR" or rate == "eur"): 
-        print("LTC price is: ", convert(get_crypto_price("LTC"), get_rate("EUR")), "EUR")
+        rate = (input("Currency symbol [ARS, EUR, USD]: ")).upper()
+
+    print_results(symbol, rate)
 
     again = input("New conversion? Y/N:  ")
-    if again == "Y" or again == "y":
-        flag = True
-    elif again == "N" or again == "n":
+    if again == "N" or again == "n":
         flag = False
         print("Bye!")
     
