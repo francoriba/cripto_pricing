@@ -2,22 +2,20 @@ import requests
 import json
 import ctypes
 
-# Definimos las URLs y clave de la API REST (www.coinapi.io)
-cripto_url = "https://rest.coinapi.io/v1/exchangerate/{}/USD" 
+# Defining URLs and key for the REST API (www.coinapi.io)
+cripto_url = "https://rest.coinapi.io/v1/exchangerate/{}/USD"
 rates_url = "https://rest.coinapi.io/v1/exchangerate/USD/{}" 
 api_key = "768E6439-1061-4146-A197-94F1AFC61779"
 
-# Definimos las criptomonedas para las que desea obtener los precios
+# Definition of the cryptocurrencies for which we want to obtain prices
 cryptos = ["BTC", "ETH", "LTC"]
-#Definimos las divisas a las que queremos convertir los precios de las cripto
+# Definition of the currencies to which we want to convert the crypto prices.
 rates = ["ARS", "EUR"]
-
+# For using c functions from python 
 clibrary = ctypes.CDLL("./currencyconverterlib.so")
 
-#Recibe una cripto como arg y retorna su precio
+# Takes a crypto symbol and returns its price in USD
 def get_crypto_price(coin): 
-    #while coin not in cryptos:
-    #    print("La cripto solicitada no es válida, intente nuevamente")
     url = cripto_url.format(coin)
     headers = {"X-CoinAPI-Key": api_key}
     response = requests.get(url, headers=headers)
@@ -25,10 +23,8 @@ def get_crypto_price(coin):
     price = data["rate"]
     return price
 
-#Recibe una moneda como arg y retorna su cotización frente a los usd
+# Takes a currency symbol and returns its exchange rate against USD.
 def get_rate(rate):
-    #while rate not in rates:
-    #    print("La cotización solicitada no es válida, intente nuevamente")
     url = rates_url.format(rate)
     headers = {"X-CoinAPI-Key": api_key}
     response = requests.get(url, headers=headers)
@@ -36,42 +32,40 @@ def get_rate(rate):
     price = data["rate"]
     return price
 
-#Especificamos parametros y valores de retorno compatibles con c
-somecripto_somerate = clibrary.somecripto_somerate
-somecripto_somerate.argtypes = [ctypes.c_float, ctypes.c_float]
-somecripto_somerate.restype = ctypes.c_float
+# Specifying parameters and return values compatible with c
+convert = clibrary.convert
+convert.argtypes = [ctypes.c_float, ctypes.c_float]
+convert.restype = ctypes.c_float
 
-print(get_rate("ARS"))
-
-flag = True
+flag = True #stop the program when is False
 while flag: 
 
-    symbol = input("Simbolo de criptomoneda: ")
+    symbol = input("Cryptocurrency symbol: ")
     while (symbol not in cryptos) and (symbol not in [c.lower() for c in cryptos]):
-        print("***ERROR: el símbolo de criptomoneda no es válido, intente nuevamente")
-        symbol = input("Simbolo de criptomoneda: ")
-    rate = input("Moneda: ")
+        print("***ERROR: invalid cryptocurrency symbol, try again")
+        symbol = input("Cryptocurrency symbol: ")
+    rate = input("Currency symbol: ")
     while (rate not in rates) and (rate  not in [r.lower() for r in rates]):
-        print("***ERROR: El símbolo de moneda no es válido, intente nuevamente")
-        rate = input("Simbolo de moneda: ")
+        print("***ERROR: invalid currency symbol, try again")
+        rate = input("Currency symbol: ")
             
     if (symbol == "BTC" or symbol == "btc") and (rate == "ARS" or rate == "ars"): 
-        print("El precio del BTC es: ", somecripto_somerate(get_crypto_price("BTC"), get_rate("ARS")), "ARS")
+        print("BTC price is : ", convert(get_crypto_price("BTC"), get_rate("ARS")), "ARS")
     elif (symbol == "BTC" or symbol == "btc") and (rate == "EUR" or rate == "eur"): 
-        print("El precio del BTC es: ", somecripto_somerate(get_crypto_price("BTC"), get_rate("EUR")), "EUR")
+        print("BTC price is: ", convert(get_crypto_price("BTC"), get_rate("EUR")), "EUR")
     elif (symbol == "ETH" or symbol == "eth") and (rate == "ARS" or rate == "ars"): 
-        print("El precio del ETH es: ", somecripto_somerate(get_crypto_price("ETH"), get_rate("ARS")), "ARS")
+        print("ETH price is: ", convert(get_crypto_price("ETH"), get_rate("ARS")), "ARS")
     elif (symbol == "ETH" or symbol == "eth") and (rate == "EUR" or rate == "eur"):     
-        print("El precio del ETH es: ", somecripto_somerate(get_crypto_price("ETH"), get_rate("EUR")), "EUR")
+        print("ETH price is: ", convert(get_crypto_price("ETH"), get_rate("EUR")), "EUR")
     elif (symbol == "LTC" or symbol == "ltc") and (rate == "ARS" or rate == "ars"): 
-        print("El precio del LTC es: ", somecripto_somerate(get_crypto_price("LTC"), get_rate("ARS")), "ARS")
+        print("LTC price is: ", convert(get_crypto_price("LTC"), get_rate("ARS")), "ARS")
     elif (symbol == "LTC" or symbol == "ltc") and (rate == "EUR" or rate == "eur"): 
-        print("El precio del LTC es: ", somecripto_somerate(get_crypto_price("LTC"), get_rate("EUR")), "EUR")
+        print("LTC price is: ", convert(get_crypto_price("LTC"), get_rate("EUR")), "EUR")
 
-    again = input("Nueva consulta? Y/N:  ")
+    again = input("New conversion? Y/N:  ")
     if again == "Y" or again == "y":
         flag = True
     elif again == "N" or again == "n":
         flag = False
-        print("Matanga dijo la changa")
+        print("Bye!")
     
