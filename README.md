@@ -1,4 +1,4 @@
-# lab2_cripto_pricing
+# Cripto pricing calculator
 Repositorio para el laboratorio n°2 de la asignatura "Sistemas de Computación" de la FCEFyN , Universidad Naconal de Córdoba, Argentina. <br>
 Grupo de trabajo: Internautas  <br>
 Abril, 2023 <br>
