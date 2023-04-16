@@ -16,7 +16,7 @@ segment .text
 %define p1 [ebp+12] 
 %define p2 [ebp+8]
 
-;probamos realizar la operación de multiplicación de dos formas distintas
+;probamos realizar la operación de multiplicación de dos formas distintas, mul2 nos permite comprender mejor lo que sucede a la hora de dubuggear con gdb
 
 mul1: 
     enter 0, 0 ;no se reserva espacio para variables locales

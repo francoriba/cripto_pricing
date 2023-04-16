@@ -14,6 +14,6 @@ int main(){
     return 0;
 }
 
-float convert(float crypto_usd, float rate){
+float convert(float crypto_usd, float rate){ //mul2 puede remplazarse por mul1
     float convertion = mul2(crypto_usd, rate); // calcula el precio de btc en ars
     return convertion;}
