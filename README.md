@@ -18,16 +18,18 @@ Para poder ejecutar el script "api.py" es necesario previamente crear la libreri
 
 
 ## Funcionamiento 
-Nuestro programa esta pensando en rasgos generales en 3 capas donde la primera utilizamos ```python``` donde hacemos el desarrollo de la API,para el desarrollo usamos  la API https://www.coinapi.io/ <br>
-Esta API nos permite hacer la cotizacion de las criptomonedas como tambien de las monedas USD EUR ARS en tiempo real. <br>
-En nuestra capa de ```C```esta el desarrollo de la conversion y tambien es la capa que conecta la otras dos
-```
-float convert(float crypto_usd, float rate){
-    float convertion = mul(crypto_usd, rate); // calcula el precio de btc en ars
-    return convertion;}
+Este proyecto se divide en 3 capas. La primer capa utiliza un lenguaje de alto nivel como los es **python** para interactuar con una [API REST](https://www.coinapi.io/) con la que, mediante un esquema HTTP request-response, se obtiene la información correspondiente a:<br>
+* Cotización en USD de alguna criptomoneda (BTC, ETH o LTC)<br>
+* Cotización en relacion a USD de alguna moneda fiduciaria (USD, ARS, EUR) <br>   
 
-```
-Donde nuestro archivo mul es con ```assembler```, nosotros utilizamos una arquitectura de assemble de x64 bits 
+Esta capa interactúa con la capa inferior proporcionandole la información (parametros) tomada de la API REST, esto se logra con ayuda de la libreria ```ctypes``` de Python que permite utlizar las funciones disponibles en una **shared library de c**. Además esta capa implementa las funcionalidades requeridas para que el usuario pueda interactuar con el programa.<br>
+
+La siguiente capa consiste de un **programa de lenguaje c** donde se implementa la función:<br>
+
+```float convert(float crypto_usd, float rate)```<br>
+
+Esta invoca a la subrutina ```mult```, que conforma la capa más baja y se encuentra escrita en **lenguaje ensamblador**, en este caso compatible con arquitecturas x86-64. El interfaceo de estas dos capas se hace posible gracias a la **call convention de c**. La subrutina se encarga de realizar la multiplicación de los valores en el stack frame que fueron traidos como parametros desde las capas superiores y permite obtener el precio de una criptomoneda expresado en unidades de alguna de las monedas fiduciarias. 
+
 ```
 segment .text
         global  mul
@@ -43,11 +45,10 @@ segment .text
         pop		rbp            
         ret
 ```
-Los registros que usamos no son parametros si no que son registros del procesador. <br>
-Como vemos hacemos el uso de una pila donde realizamos la multiplicacion de dos puntos flotantes ```mulss	xmm0, xmm1```
 <br>
-Podemos visualizar como se genera nuestra ```stackframe``` quedando  visualmente de esta manera
+
+Podemos intuir como se vería nuestra **stackframe** :
 
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/stack.png)
 
-Donde podemos ver como nuetra ```stackframe``` esta conformada por el valor de la criptomoneda en dolares ```RBP+24``` , de la moneda que se haya elegido a su conversion en dolares```RBP+16```, la direccion de retorno```RBP+8``` y el valor original de el ```RBP```. <rb>
+Podemos observar como el ```stackframe``` esta conformado los dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```RBP+24``` (precio en USD de alguna criptomoneda) y ```RBP+16``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). Finalmente se referencia la direccion de retorno```RBP+8``` y el valor original de registro RBP que fue stackeado y es apuntado por el mismo ```RBP```. <rb>
