@@ -71,7 +71,7 @@ El ```stackframe``` contiene dos parametros del tipo float (ocupando 4Bytes c/u)
 
 ## GDB
 Compilando con la flag -g, podemos depurar el código utilizando gdb.  
-En primera instancia, establecemos el break point en el main y vamos mostrando los registros en cada step realizado con el comando ``info register``
+En primera instancia, establecemos el break point en el main y vamos mostrando los registros en cada step realizado con el comando ``info register``<br>
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image.png)
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image2.png)
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image3.png)
