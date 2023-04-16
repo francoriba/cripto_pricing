@@ -52,3 +52,10 @@ Podemos intuir como se vería nuestra **stackframe** :
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/stack.png)
 
 Podemos observar como el ```stackframe``` esta conformado los dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```RBP+24``` (precio en USD de alguna criptomoneda) y ```RBP+16``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). Finalmente se referencia la direccion de retorno```RBP+8``` y el valor original de registro RBP que fue stackeado y es apuntado por el mismo ```RBP```. <rb>
+
+## GDB
+Compilando con la flag -g, podemos depurar el código utilizando gdb.  
+En primera instancia, establecemos el break point en el main y vamos mostrando los registros en cada step realizado con el comando ``info register``<br>
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/image.png)
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/image2.png)
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/image3.png)
