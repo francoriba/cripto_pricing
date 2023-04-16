@@ -9,7 +9,7 @@ NASMFLAGS=		-f elf32
 SRCS = main.c mul32.asm
 
 # Object files
-OBJS= main.o mul32.o
+OBJS= main.o mul32.o asm_io.o
 
 # Target
 TARGETS = main currencyconverterlib.so #Name for final target
@@ -31,12 +31,15 @@ main: $(OBJS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 # Compile NASM assembly files
-%.o: %.asm
+%.o: %.asm 
 	$(NASM) $(NASMFLAGS) -o $@ $<
+
+asm_io.o: asm_io.asm
+	nasm -f elf32 -d ELF_TYPE -o $@ $^
 
 # Create shared library from object files
 currencyconverterlib.so: mul32.o main.o
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) -m32 -o $@ $^
 	@echo "\n"Build Donde!"\n"
 
 # Eliminar todos los objetos, dependencias y ejecutables  -f los ignora si no existen
