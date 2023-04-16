@@ -65,6 +65,6 @@ mul2:
 ```
 <br>
 
-![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/stackx86.png)
+![]([https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/stackx86.png](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/stackx86.png))
 
 El ```stackframe``` contiene dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```EBP+12``` (precio en USD de alguna criptomoneda) y ```EBP+8``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). 
