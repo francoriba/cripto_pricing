@@ -68,3 +68,10 @@ mul2:
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/stackx86.png)
 
 El ```stackframe``` contiene dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```EBP+12``` (precio en USD de alguna criptomoneda) y ```EBP+8``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). 
+
+## GDB
+Compilando con la flag -g, podemos depurar el código utilizando gdb.  
+En primera instancia, establecemos el break point en el main y vamos mostrando los registros en cada step realizado con el comando ``info register``
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image.png)
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image2.png)
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image3.png)
