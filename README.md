@@ -1,5 +1,5 @@
-# lab2_cripto_pricing
-Repositorio para el laboratorio n°2 de la asignatura "Sistemas de Computación" de la FCEFyN , Universidad Naconal de Córdoba, Argentina. <br>
+# Cripto pricing calculator
+Repositorio para el laboratorio n°2 de la asignatura **"Sistemas de Computación"** de la FCEFyN , Universidad Naconal de Córdoba, Argentina. <br>
 Grupo de trabajo: Internautas  <br>
 Abril, 2023 <br>
 Integrantes: 
@@ -51,4 +51,8 @@ Podemos intuir como se vería nuestra **stackframe** :
 
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/stack.png)
 
-Podemos observar como el ```stackframe``` esta conformado los dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```RBP+24``` (precio en USD de alguna criptomoneda) y ```RBP+16``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). Finalmente se referencia la direccion de retorno```RBP+8``` y el valor original de registro RBP que fue stackeado y es apuntado por el mismo ```RBP```. <rb>
+Podemos observar como el ```stackframe``` esta conformado los dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```RBP+24``` (precio en USD de alguna criptomoneda) y ```RBP+16``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). Finalmente se referencia la direccion de retorno```RBP+8``` y el valor original de registro RBP que fue stackeado y es apuntado por el mismo ```RBP```. <rb> 
+
+
+
+
