@@ -11,11 +11,19 @@ Integrantes:
  * Jorge, Javier Alejandro 
  * Solinas, Miguel
 
-## Como ejecutar el script de Python
+## Ejecución
 Para poder ejecutar el script "api.py" es necesario previamente crear la libreria "currencyconverterlib.so", puede hacer esto manualmente mediante los comandos comentados en el archivo "mul64.asm" o bien haciendo uso del Makefile mediante el comando "make" (que creará además el archivo ejecutable apto para ser debugeado mediante gdb y los archivos objeto asociados). Con el comando "make clean" puede eliminar los archivos de salida del Makefile. 
 
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/mapa%20conceptual%20.png)
 
+1. Ejecución de ``make`` y si todo sale bien, nos avisa que ya se hizo el build  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/execution.png)  
+2. Ejecutamos el script de python y vemos que nos va a pedir ingresar una crypto y una moneda. Si ingresamos valores válidos, realizará la conversión:  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/execution2.png)  
+3. El programa nos pregunta si queremos realizar otra conversión. Si decimos que no, finalizará, sino vuelve al paso 2.  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/execution3.png)  
+4. En el caso de que se haya ingresado un valor incorrecto, se le avisa al usuario y se vuelve a pedir el valor  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/x86-64-mejoras/img/execution4.png)  
 
 ## Funcionamiento 
 Este proyecto se divide en 3 capas. La primer capa utiliza un lenguaje de alto nivel como los es **python** para interactuar con una [API REST](https://www.coinapi.io/) con la que, mediante un esquema HTTP request-response, se obtiene la información correspondiente a:<br>
