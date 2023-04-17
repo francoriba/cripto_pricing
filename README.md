@@ -16,6 +16,14 @@ Para poder ejecutar el script "api.py" es necesario previamente crear la libreri
 
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/mapa%20conceptual.png)
 
+1. Ejecución de ``make`` y si todo sale bien, nos avisa que ya se hizo el build  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/execution.png)  
+2. Ejecutamos el script de python y vemos que nos va a pedir ingresar una crypto y una moneda. Si ingresamos valores válidos, realizará la conversión:  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/execution2.png)  
+3. El programa nos pregunta si queremos realizar otra conversión. Si decimos que no, finalizará, sino vuelve al paso 2.  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/execution3.png)  
+4. En el caso de que se haya ingresado un valor incorrecto, se le avisa al usuario y se vuelve a pedir el valor  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/execution4.png)  
 
 ## Funcionamiento 
 Este proyecto se divide en 3 capas. La primer capa utiliza un lenguaje de alto nivel como los es **python** para interactuar con una [API REST](https://www.coinapi.io/) con la que, mediante un esquema HTTP request-response, se obtiene la información correspondiente a:<br>
