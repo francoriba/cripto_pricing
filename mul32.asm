@@ -19,10 +19,11 @@ segment .text
 ;probamos realizar la operación de multiplicación de dos formas distintas, mul2 nos permite comprender mejor lo que sucede a la hora de dubuggear con gdb
 
 mul1: 
-    enter 0, 0 ;no se reserva espacio para variables locales
+    enter 4, 0 ;varibales locales definidas solo para inspección del stack frame
     fld     dword p1 ;ST0 = p1
     fld     dword p2 ;ST1 = p2
     fmulp   st1, st0 ;multiplicamos la cotización de la mondea fiduciaria por el valor de la cripto
+    dump_stack      1, 1, 3
     leave ;liberamos la pila
     ret ;retornamos a la función de c
 

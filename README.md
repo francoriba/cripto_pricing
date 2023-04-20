@@ -76,6 +76,25 @@ mul2:
 ![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/stack_x86.png)
 
 El ```stackframe``` contiene dos parametros del tipo float (ocupando 4Bytes c/u) que ocupan las posiciones ```EBP+12``` (precio en USD de alguna criptomoneda) y ```EBP+8``` (precio de un USD expresado en unidades de alguna moneda fiduciaria). 
+<br>
+
+## Dump del Stack
+A continuación se muestra el área de memoria donde se encuentra alojado el stack haciendo uso de la función dump_stack que ya se encontraba implementada en los ejemplos propuestos por Paul Carter:<br>
+
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/dump_stack.png)
+<br>
+
+Para verificar usamos la calculadora online que utiliza el Estándar IEEE 754 para convertir un valor de punto flotante a su equivalente decimal. 
+
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/rate.png)
+<br>
+Comparando ambas imágenes podemos ver como la posición del stack referenciada por [EBP+12] = FFF9E834 efectivamente contiene el valor 43C1899A que se corresponde con el primer parámetro pusheado (rate de conversión).
+
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/price.png)
+<br>
+Del mismo modo podemos ver como la posición del stack referenciada por [EBP+8] = FFF9E830  efectivamente contiene el valor 46ED3833  que se corresponde con el segundo parámetro pusheado (precio de la cripto en USD).
+
+También podemos observar que la posición de la pila referenciada por [EBP + 4] = FFF9E82C contiene el valor 5658E293 que se corresponde con la dirección de retorno de la función mul1 (es decir el respaldo del valor que tenía el registro IP antes de el llamado a la función mul1).
 
 ## GDB
 Compilando con la flag -g, podemos depurar el código utilizando gdb.  
