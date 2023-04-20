@@ -96,9 +96,19 @@ Del mismo modo podemos ver como la posición del stack referenciada por [EBP+8] 
 
 También podemos observar que la posición de la pila referenciada por [EBP + 4] = FFF9E82C contiene el valor 5658E293 que se corresponde con la dirección de retorno de la función mul1 (es decir el respaldo del valor que tenía el registro IP antes de el llamado a la función mul1).
 
-## GDB
-Compilando con la flag -g, podemos depurar el código utilizando gdb.  
-En primera instancia, establecemos el break point en el main y vamos mostrando los registros en cada step realizado con el comando ``info register``<br>
-![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image.png)
-![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image2.png)
-![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/image3.png)
+## GDB 
+
+Para poder inspeccionar la pila usando gdb comenzamos por generar el archivo ejecutable mediante el Makefile, este considera para los comandos el flag -g para poder usar gdb.   
+
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb1.png)  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb2.png)  
+A continuación colocamos un break en la función main que contiene el llamado a la función “convert”. Posteriormente a partir de allí comenzamos a inspeccionar los cambios ocurridos a medida que avanzamos en la ejecución mediante el comando “step”  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb3.png)  
+Utilizamos el gdb dashboard para visualizar en cada paso el stack. Vemos que antes de ingresar a la función de assembler, es decir, todavía en el main del código de C, el stack contiene los siguientes registros con sus valores en “Registers”. El ebp tiene un valor de 0xffffcf38 y el esp, 0xffffcf30. Cuando se retorne de la función de assembler, deberían volver a tener estos mismos valores.  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb4.png)  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb5.png)  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb6.png)  
+Cuando termina de ejecutarse la función de assembler, se retorna al main y el stack es el siguiente. Vemos que efectivamente se restauran los valores de esp y ebp que tenían antes de ingresar a la función. También vemos que el resultado de la multiplicación de los parámetros ha sido correctamente asignado a la variable conversión.   
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/gdb7.png)  
+Por último tambien notamos como el eip cambia su base de `main` a `convert`, la cual es el nombre de la función en la que se encuentra el programa en este momento. A esta base, le suma un dsplazamiento con cada `stepi` puesto que el programa avanza y por lo tanto, también avanza la próxima instrucción a ejecutarse. Lo vemos claramente en la dirección de memoria: `0x56556234: convert`, `0x56556235: convert + 1` y así sucesivamente.  
+![](https://github.com/francoriba/lab2_cripto_pricing/blob/master/img/stackframe.png)  
